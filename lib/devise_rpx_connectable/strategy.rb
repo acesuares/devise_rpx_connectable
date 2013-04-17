@@ -26,22 +26,26 @@ module Devise #:nodoc:
 
             rpx_user = (RPXNow.user_data(params[:token], :extended => klass.rpx_extended_user_data, :additional => klass.rpx_additional_user_data) rescue nil)
             fail!(:rpx_invalid) and return unless rpx_user
-            
+
             if user = klass.authenticate_with_rpx(:identifier => rpx_user["identifier"], :request_keys => request_keys )
               user.on_before_rpx_success(rpx_user)
               success!(user)
               return
             end
             
-            fail!(:rpx_invalid) and return unless klass.rpx_auto_create_account?
+            fail!(:rpx_invalid) and return unless klass.rpx_auto_create_or_merge_account?
+
+            # we need to create a new account or merge with an existing account.
+
+            redirect_to 'http://www.suares.com'
             
-            user = klass.new
-            user.store_rpx_credentials!(rpx_user.merge(:request_keys => request_keys))
-            user.on_before_rpx_auto_create(rpx_user)
-            
-            user.save(:validate => false)
-            user.on_before_rpx_success(rpx_user)
-            success!(user)
+#            user = klass.new
+#            user.store_rpx_credentials!(rpx_user.merge(:request_keys => request_keys))
+#            user.on_before_rpx_auto_create(rpx_user)
+#
+#            user.save(:validate => false)
+#            user.on_before_rpx_success(rpx_user)
+#            success!(user)
             
           rescue
             fail!(:rpx_invalid)

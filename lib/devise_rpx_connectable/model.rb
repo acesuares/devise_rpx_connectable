@@ -14,7 +14,7 @@ module Devise #:nodoc:
     #
     # +rpx_identifier_field+ - Defines the name of the RPX identifier database attribute/column.
     #
-    # +rpx_auto_create_account+ - Speifies if account should automatically be created upon connect
+    # +rpx_auto_create_or_merge_account+ - Speifies if account should automatically be created upon connect
     #                                 if not already exists.
     #
     # == Examples:
@@ -86,7 +86,7 @@ module Devise #:nodoc:
       end
       
       # Hook that gets called before the auto creation of the user.
-      # Therefore, this hook is only called when rpx_auto_create_account config option is enabled.
+      # Therefore, this hook is only called when rpx_auto_create_or_merge_account config option is enabled.
       # Useful for fetching additional user info (etc.) from RPX.
       #
       # Default: Do nothing.
@@ -119,23 +119,23 @@ module Devise #:nodoc:
         #
         #   Devise.setup do |config|
         #     config.rpx_identifier_field = :rpx_identifier
-        #     config.rpx_auto_create_account = true
+        #     config.rpx_auto_create_or_merge_account = true
         #     config.get_extended_user_data = true
         #   end
         #
         ::Devise::Models.config(self,
           :rpx_identifier_field,
-          :rpx_auto_create_account,
+          :rpx_auto_create_or_merge_account,
           :rpx_extended_user_data,
           :rpx_additional_user_data,
           :request_keys
         )
 
         # Alias don't work for some reason, so...a more Ruby-ish alias
-        # for +rpx_auto_create_account+.
+        # for +rpx_auto_create_or_merge_account+.
         #
-        def rpx_auto_create_account?
-          self.rpx_auto_create_account
+        def rpx_auto_create_or_merge_account?
+          self.rpx_auto_create_or_merge_account
         end
 
         # Authenticate a user based on RPX Identifier.

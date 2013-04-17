@@ -55,15 +55,15 @@ describe 'DeviseRpxConnectable' do
         User.should_receive(:authenticate_with_rpx).with({ :identifier => RPX_USER_DATA["identifier"], :request_keys => {} }).and_return(nil)
       end
                 
-      it "should fail unless rpx_auto_create_account" do
-        User.should_receive(:"rpx_auto_create_account?").and_return(false)
+      it "should fail unless rpx_auto_create_or_merge_account" do
+        User.should_receive(:"rpx_auto_create_or_merge_account?").and_return(false)
         @strategy.should_receive(:"fail!").with(:rpx_invalid).and_return(true)
         
         lambda { @strategy.authenticate! }.should_not raise_error
       end
       
-      it "should create a new user and success if rpx_auto_create_account" do
-        User.should_receive(:"rpx_auto_create_account?").and_return(true)
+      it "should create a new user and success if rpx_auto_create_or_merge_account" do
+        User.should_receive(:"rpx_auto_create_or_merge_account?").and_return(true)
         
         User.should_receive(:new).and_return(@user)
         @user.should_receive(:"store_rpx_credentials!").with(RPX_USER_DATA).and_return(true)

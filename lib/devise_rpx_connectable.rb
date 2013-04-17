@@ -17,8 +17,8 @@ module Devise
   mattr_accessor :rpx_identifier_field
   @@rpx_identifier_field = :rpx_identifier
   
-  mattr_accessor :rpx_auto_create_account
-  @@rpx_auto_create_account = true
+  mattr_accessor :rpx_auto_create_or_merge_account
+  @@rpx_auto_create_or_merge_account = true
   
   mattr_accessor :rpx_extended_user_data
   @@rpx_extended_user_data = true

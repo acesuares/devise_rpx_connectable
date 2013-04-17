@@ -111,7 +111,7 @@ There is some advanced features that you may use...
 <pre>
   Devise.setup do |config|
     ...
-		config.rpx_auto_create_account = true # false if you don't want to create users automaticaly. True by default.
+		config.rpx_auto_create_or_merge_account = true # false if you don't want to create or merge user accounts with identifiers automaticaly. True by default.
 		config.rpx_additional_user_data = [:verifiedEmail, :url, :providerName,:photo] # default [], get some extra profile info from RPXnow, default only a few fields are available in the rpx_user object (https://rpxnow.com/docs#profile_data)
 		config.rpx_extended_user_data = true # false by default, extended data only available for Plus and Pro RPX users (https://rpxnow.com/docs#api_auth_info)
   end
@@ -119,7 +119,7 @@ There is some advanced features that you may use...
 
 *Devise:Model*
 
-There are two hooks that you may define in your model : @before_rpx_success@ (called before each successful connection) and @before_rpx_auto_create@ (called only once before the auto saving of the user instance, when rpx_auto_create_account is enabled).
+There are two hooks that you may define in your model : @before_rpx_success@ (called before each successful connection) and @before_rpx_auto_create@ (called only once before the auto saving of the user instance, when rpx_auto_create_or_merge_account is enabled).
 You get in parameter the RPX User object from the RPXNow gem which is basically a Hash containing more or less information depending on your RPX configuration and account.
 Read the RPXNow gem documentation for more information about this...
 
